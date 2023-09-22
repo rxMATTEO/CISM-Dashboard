@@ -44,7 +44,7 @@ const isDocumentsEmpty = computed(() => docs.length === 0);
       <p>Выберите документ, чтобы посмотреть его содержимое</p>
     </div>
     <template v-else>
-      <DocumentContent :document="selectedDocument" />
+      <DocumentContent :doc="selectedDocument" />
     </template>
   </div>
 </div>

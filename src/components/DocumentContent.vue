@@ -3,7 +3,7 @@ import type { Document } from '../stores/documentsStore.ts';
 import ButtonInput from './ButtonInput.vue';
 
 type DocumentContentProps = {
-  document: Document
+  doc: Document
 }
 defineProps<DocumentContentProps>();
 </script>
@@ -11,16 +11,18 @@ defineProps<DocumentContentProps>();
 <template>
   <div class="content">
     <div class="image">
-      <img :src="document.image" :alt="document.name">
+      <img :src="doc.image" :alt="doc.name">
     </div>
     <div class="right">
       <div>
-      <p class="header">{{ document.name }}</p>
+      <p class="header">{{ doc.name }}</p>
       <div class="options">
-        <ButtonInput severity="primary">
-          Скачать
-        </ButtonInput>
-        <ButtonInput severity="danger">
+        <a :href="`data:text/plain;charset=utf-8,${doc.description}`" download="text.txt">
+          <ButtonInput severity="primary">
+            Скачать
+          </ButtonInput>
+        </a>
+        <ButtonInput severity="danger" :disabled="!doc.image">
           Удалить
         </ButtonInput>
       </div>
@@ -28,7 +30,7 @@ defineProps<DocumentContentProps>();
     <div class="description">
       <p class="label">Описание:</p>
       <p class="text">
-        {{ document.description }}
+        {{ doc.description }}
       </p>
     </div>
     </div>
@@ -39,6 +41,7 @@ defineProps<DocumentContentProps>();
 <style scoped>
 .content {
   width: 100%;
+  height: 50%;
   display: flex;
   gap: 50px;
   .options{
@@ -64,7 +67,7 @@ defineProps<DocumentContentProps>();
     width: 50%;
   }
   .image {
-    height: 50%;
+    min-height: 50%;
     width: 50%;
     & img {
       width: 100%;
