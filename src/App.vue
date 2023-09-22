@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import Header from './components/Header.vue';
 </script>
 
 <template>
-  <div>
-    <p class="font">AAHAHA</p>
+  <div class="main">
+    <Header />
   </div>
 </template>
 
 <style scoped>
-.font {
-  font-family: Montserrat;
+.main {
+  padding: 20px 50px;
 }
 </style>
