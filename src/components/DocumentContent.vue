@@ -2,16 +2,23 @@
 import type { Document } from '../stores/documentsStore.ts';
 import ButtonInput from './ButtonInput.vue';
 
-type DocumentContentProps = {
-  doc: Document
+export type DocumentError = {
+  error: string
 }
-defineProps<DocumentContentProps>();
+type DocumentContentProps = {
+  doc: Document,
+  error: DocumentError
+}
+
+const p = defineProps<DocumentContentProps>();
+console.log(p);
 </script>
 
 <template>
   <div class="content">
+    <template v-if="!error">
     <div class="image">
-      <img :src="doc.image" :alt="doc.name">
+      <img v-if="doc.image" :src="doc.image" :alt="doc.name">
     </div>
     <div class="right">
       <div>
@@ -34,7 +41,10 @@ defineProps<DocumentContentProps>();
       </p>
     </div>
     </div>
-
+    </template>
+    <template v-else>
+      <p>Ошибка: {{ error.error }}</p>
+    </template>
   </div>
 </template>
 

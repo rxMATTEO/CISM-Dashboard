@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {computed, Ref, ref} from 'vue';
-import {documentsStore} from '../stores/documentsStore.ts';
-import {storeToRefs} from 'pinia';
+import { computed, Ref, ref } from 'vue';
+import { documentsStore } from '../stores/documentsStore.ts';
+import { storeToRefs } from 'pinia';
 import type { Document } from '../stores/documentsStore.ts';
 import DocumentContent from './DocumentContent.vue';
+import type { DocumentError } from './DocumentContent.vue';
 
 const docsStore = documentsStore();
 const { status } = storeToRefs(docsStore);
@@ -11,9 +12,19 @@ let docs = ref(await docsStore.documents);
 const selectedDocument: Ref<Document | null> = ref(null);
 const isDocumentsEmpty = computed(() => docs.value.length === 0);
 const search = ref('');
+const error: Ref<DocumentError | null> = ref(null);
+
+function isErrored(result: Response): result is Response {
+  return result.ok === false;
+}
 
 async function searchDocs(){
-  docs.value = await docsStore.searchById(+search.value);
+  const result = await docsStore.searchById(+search.value);
+  if(isErrored(result as Response)) {
+    error.value = { error: (result as Response).statusText };
+  } else {
+    docs.value = result as Document[];
+  }
 }
 </script>
 
@@ -29,7 +40,7 @@ async function searchDocs(){
         <p class="header">Результаты</p>
         <p class="search-result" v-if="isDocumentsEmpty">{{ status.NotFound }}</p>
         <template v-else>
-          <div v-for="doc in docs" :key="doc.id" class="document-item" @click="selectedDocument = doc" :class="{ selected: selectedDocument?.id === doc.id }">
+          <div v-for="doc in docs" :key="doc.id" class="document-item" @click="selectedDocument = doc; error = null" :class="{ selected: selectedDocument?.id === doc.id }">
             <div class="item-left">
               <img v-if="doc.image" :src="doc.image" :alt="doc.name" class="document-img">
               <span v-else></span>
@@ -45,11 +56,11 @@ async function searchDocs(){
   </div>
 
   <div class="dashboard-content">
-    <div class="dashboard-content-empty" v-if="!selectedDocument">
+    <div class="dashboard-content-empty" v-if="!selectedDocument && !error">
       <p>Выберите документ, чтобы посмотреть его содержимое</p>
     </div>
     <template v-else>
-      <DocumentContent :doc="selectedDocument" />
+      <DocumentContent :doc="selectedDocument as Document" :error="error as DocumentError" />
     </template>
   </div>
 </div>
