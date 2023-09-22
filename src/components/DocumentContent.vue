@@ -5,7 +5,7 @@ import ButtonInput from './ButtonInput.vue';
 type DocumentContentProps = {
   document: Document
 }
-const props = defineProps<DocumentContentProps>();
+defineProps<DocumentContentProps>();
 </script>
 
 <template>
@@ -52,11 +52,16 @@ const props = defineProps<DocumentContentProps>();
       font-weight: bold;
       font-size: 16px;
     }
+    .text {
+      margin-top: 15px;
+      color: var(--text-secondary);
+    }
   }
   .right {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    width: 50%;
   }
   .image {
     height: 50%;

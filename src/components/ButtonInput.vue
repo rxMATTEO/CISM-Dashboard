@@ -19,11 +19,11 @@ defineProps<ButtonProps>();
   padding: 10px 32px;
   font-size: 14px;
   &.primary {
-    border: var(--blue) 2px solid;
+    border: var(--blue) 1px solid;
     color: var(--blue);
   }
   &.danger {
-    border: var(--danger) 2px solid;
+    border: var(--danger) 1px solid;
     color: var(--danger);
   }
 }
