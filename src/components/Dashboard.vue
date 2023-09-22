@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed, Ref, ref} from 'vue';
 import {documentsStore} from '../stores/documentsStore.ts';
 import {storeToRefs} from 'pinia';
+import type { Document } from '../stores/documentsStore.ts';
 
 const docsStore = documentsStore();
 const { status } = storeToRefs(docsStore);
-const _docs = await docsStore.documents;
-const isDocumentsEmpty = computed(() => _docs.length === 0);
+const docs = await docsStore.documents;
+const selectedDocument: Ref<Document | null> = ref(null);
+const isDocumentsEmpty = computed(() => docs.length === 0);
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
         <p class="header">Результаты</p>
         <p class="search-result" v-if="isDocumentsEmpty">{{ status.NotFound }}</p>
         <template v-else>
-          <div v-for="doc in _docs" :key="doc.id" class="document-item">
+          <div v-for="doc in docs" :key="doc.id" class="document-item" @click="selectedDocument = doc" :class="{ selected: selectedDocument?.id === doc.id }">
             <div class="item-left">
               <img v-if="doc.image" :src="doc.image" :alt="doc.name" class="document-img">
               <span v-else></span>
@@ -37,8 +39,11 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
   </div>
 
   <div class="dashboard-content">
-    <div class="dashboard-content-empty">
+    <div class="dashboard-content-empty" v-if="!selectedDocument">
       <p>Выберите документ, чтобы посмотреть его содержимое</p>
+    </div>
+    <div class="content" v-else>
+      {{ selectedDocument.name }}
     </div>
   </div>
 </div>
@@ -89,9 +94,15 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
       margin-top: 10px;
       background-color: var(--background-section);
       box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);
-      padding: 5px;
       display: flex;
       cursor: pointer;
+      &.selected {
+        background: var(--blue);
+        color: white;
+        .document-label {
+          color: var(--text-primary) !important;
+        }
+      }
       .document-img {
         width: 100%;
         height: 100%;
@@ -103,7 +114,7 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
         border-right: var(--border) solid 1px;
       }
       .item-content {
-        padding-left: 5px;
+        padding: 15px;
         .document-name {
           font-weight: bold;
         }

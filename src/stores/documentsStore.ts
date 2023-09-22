@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 
-type Document = {
+export type Document = {
   id: number,
   name: string,
   desciption: string,

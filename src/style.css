@@ -17,10 +17,6 @@
   box-sizing: border-box;
 }
 
-body * {
-  background-color: #FDFDFD;
-}
-
 :root {
   line-height: 1.5;
   font-weight: 400;
@@ -34,9 +30,12 @@ body * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  background-color: #FDFDFD;
   --secondary: #E9ECEF;
   --text-secondary: #6C757D;
+  --text-primary: rgba(222, 226, 230, 1);
   --background-section: #FFFFFF;
   --border: rgba(224, 224, 224, 1);
-  font-size: 16px;
+  --blue: rgba(13, 110, 253, 1);
 }
