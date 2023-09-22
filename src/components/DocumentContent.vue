@@ -10,8 +10,7 @@ type DocumentContentProps = {
   error: DocumentError
 }
 
-const p = defineProps<DocumentContentProps>();
-console.log(p);
+defineProps<DocumentContentProps>();
 </script>
 
 <template>

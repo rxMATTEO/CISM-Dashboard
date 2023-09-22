@@ -11,7 +11,7 @@ import Dashboard from './components/Dashboard.vue';
         <Dashboard />
       </template>
       <template #fallback>
-        <div>Loading...</div>
+        <div>Загрузка...</div>
       </template>
     </Suspense>
   </div>

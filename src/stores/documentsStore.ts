@@ -19,7 +19,6 @@ export const documentsStore = defineStore('documentsStore', {
     async searchById(id: number): Promise<Response | Document[]> {
       const response: Response  = await fetch(import.meta.env.VITE_API_URL + '/user/docs?search=' + id)
         .catch( (error) => {
-          console.log(error);
           return error;
         } );
       return id ? response.ok ? response.json(): response: await this.documents;
