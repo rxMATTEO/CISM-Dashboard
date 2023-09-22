@@ -22,6 +22,9 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
         <p class="search-result" v-if="isDocumentsEmpty">{{ status.NotFound }}</p>
         <template v-else>
           <div v-for="doc in _docs" :key="doc.id" class="document-item">
+            <div>
+              <img :src="doc.image" :alt="doc.name" class="document-img">
+            </div>
             <p class="search-result">{{ doc.name }}</p>
           </div>
         </template>
@@ -81,6 +84,12 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
       box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);
       padding: 5px;
       border-radius: 5px;
+      display: flex;
+      .document-img {
+        width: 50px;
+        height: 100%;
+        margin-right: 10px;
+      }
     }
   }
   .dashboard-content {
