@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  dashboard-cism:
+    build: .
+    container_name: dashboard-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - chokidar_usepolling=true
+    volumes:
+      - ./:/app
+      - /app/node_modules
+

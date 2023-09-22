@@ -23,7 +23,7 @@ defineProps<DocumentContentProps>();
       <div>
       <p class="header">{{ doc.name }}</p>
       <div class="options">
-        <a :href="`data:text/plain;charset=utf-8,${doc.description}`" download="text.txt">
+        <a :href="`data:text/plain;charset=utf-8,${doc.description}`" :download="`${doc.name}.txt`">
           <ButtonInput severity="primary">
             Скачать
           </ButtonInput>
