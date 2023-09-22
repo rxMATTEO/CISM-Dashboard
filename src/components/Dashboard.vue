@@ -100,6 +100,8 @@ async function searchDocs(){
   }
   .dashboard-main {
     margin-top: 15px;
+    overflow-y: scroll;
+    max-height: 85%;
     .search-result {
       margin-top: 5px;
       color: var(--text-secondary);
@@ -152,6 +154,30 @@ async function searchDocs(){
       height: 100%;
       color: var(--text-secondary);
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-side {
+    width: 15rem !important;
+  }
+  .document-name {
+    font-size: 12px;
+  }
+  .item-content {
+    padding: 1px !important;
+  }
+  .dashboard-side {
+    padding: 7px !important;
+  }
+  .search {
+    padding: 5px !important;
+  }
+  .document-item {
+    .item-left {
+      width: 100% !important;
+    }
+    flex-direction: column;
   }
 }
 </style>
