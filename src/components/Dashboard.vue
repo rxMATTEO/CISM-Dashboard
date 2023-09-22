@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 import {documentsStore} from '../stores/documentsStore.ts';
+import {storeToRefs} from 'pinia';
 
-const searchResult = ref('Ничего не найдено');
-const documents = documentsStore();
-console.log(await documents.documents);
+const docsStore = documentsStore();
+const { status } = storeToRefs(docsStore);
+const _docs = await docsStore.documents;
+const isDocumentsEmpty = computed(() => _docs.length === 0);
 </script>
 
 <template>
@@ -17,7 +19,12 @@ console.log(await documents.documents);
     <div class="dashboard-main">
       <div class="dashboard-header">
         <p class="header">Результаты</p>
-        <p class="search-result">{{ searchResult }}</p>
+        <p class="search-result" v-if="isDocumentsEmpty">{{ status.NotFound }}</p>
+        <template v-else>
+          <div v-for="doc in _docs" :key="doc.id" class="document-item">
+            <p class="search-result">{{ doc.name }}</p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -42,6 +49,7 @@ console.log(await documents.documents);
   }
   .dashboard-side {
     border-right: var(--secondary) solid 1px;
+    width: 20%;
   }
   .dashboard-header {
     .header {
@@ -66,9 +74,17 @@ console.log(await documents.documents);
       color: var(--text-secondary);
       font-size: 14px;
     }
+
+    .document-item {
+      margin-top: 10px;
+      background-color: var(--background-section);
+      box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);
+      padding: 5px;
+      border-radius: 5px;
+    }
   }
   .dashboard-content {
-    width: 100%;
+    width: 80%;
     .dashboard-content-empty {
       display: flex;
       justify-content: center;

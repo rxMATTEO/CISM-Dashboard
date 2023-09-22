@@ -1,14 +1,25 @@
 import {defineStore} from 'pinia';
 
+type Document = {
+  id: number,
+  name: string,
+  desciption: string,
+  image: string,
+}
 export const documentsStore = defineStore('documentsStore', {
   state: () => {
-    return {};
+    enum Status {
+      NotFound = 'Ничего не найдено'
+    }
+    return {
+      status: Status
+    };
   },
   actions : {
 
   },
   getters: {
-    async documents() {
+    async documents(): Promise<Document[]> {
       return (await fetch(import.meta.env.VITE_API_URL + '/user/docs')).json();
     }
   }
