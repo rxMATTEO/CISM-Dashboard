@@ -71,4 +71,6 @@ This is dashboard for cism test case
 
 ## Docker build
 
-`docker build . -p 3000:3000`
+`docker build . -t cism:latest`
+
+`docker run cism:latest -p 3000:3000`
