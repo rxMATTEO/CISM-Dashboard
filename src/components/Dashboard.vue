@@ -22,10 +22,14 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
         <p class="search-result" v-if="isDocumentsEmpty">{{ status.NotFound }}</p>
         <template v-else>
           <div v-for="doc in _docs" :key="doc.id" class="document-item">
-            <div>
-              <img :src="doc.image" :alt="doc.name" class="document-img">
+            <div class="item-left">
+              <img v-if="doc.image" :src="doc.image" :alt="doc.name" class="document-img">
+              <span v-else></span>
             </div>
-            <p class="search-result">{{ doc.name }}</p>
+            <div class="item-content">
+              <p class="document-name">{{ doc.name }}</p>
+              <p class="document-label">12 mb</p>
+            </div>
           </div>
         </template>
       </div>
@@ -65,6 +69,8 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
       border-radius: 5px;
       color: black;
       margin-top: 5px;
+      display: block;
+      width: 100%;
       &::placeholder {
         font-size: 14px;
       }
@@ -76,6 +82,7 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
       margin-top: 5px;
       color: var(--text-secondary);
       font-size: 14px;
+      font-weight: bold;
     }
 
     .document-item {
@@ -83,12 +90,27 @@ const isDocumentsEmpty = computed(() => _docs.length === 0);
       background-color: var(--background-section);
       box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);
       padding: 5px;
-      border-radius: 5px;
       display: flex;
+      cursor: pointer;
       .document-img {
-        width: 50px;
+        width: 100%;
         height: 100%;
         margin-right: 10px;
+        padding-right: 5px;
+      }
+      .item-left {
+        width: 20%;
+        border-right: var(--border) solid 1px;
+      }
+      .item-content {
+        padding-left: 5px;
+        .document-name {
+          font-weight: bold;
+        }
+        .document-label {
+          text-transform: uppercase;
+          color: var(--text-secondary);
+        }
       }
     }
   }
