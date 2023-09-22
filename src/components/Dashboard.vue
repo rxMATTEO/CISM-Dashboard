@@ -3,6 +3,7 @@ import {computed, Ref, ref} from 'vue';
 import {documentsStore} from '../stores/documentsStore.ts';
 import {storeToRefs} from 'pinia';
 import type { Document } from '../stores/documentsStore.ts';
+import DocumentContent from './DocumentContent.vue';
 
 const docsStore = documentsStore();
 const { status } = storeToRefs(docsStore);
@@ -42,9 +43,9 @@ const isDocumentsEmpty = computed(() => docs.length === 0);
     <div class="dashboard-content-empty" v-if="!selectedDocument">
       <p>Выберите документ, чтобы посмотреть его содержимое</p>
     </div>
-    <div class="content" v-else>
-      {{ selectedDocument.name }}
-    </div>
+    <template v-else>
+      <DocumentContent :document="selectedDocument" />
+    </template>
   </div>
 </div>
 </template>
