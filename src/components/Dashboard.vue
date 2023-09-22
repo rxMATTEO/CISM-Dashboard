@@ -33,13 +33,13 @@ const searchResult = ref('Ничего не найдено');
   margin-top: 1rem;
   border-radius: .5rem;
   height: calc(100vh - 100px);
+  display: flex;
   & > div {
     padding: 1rem;
   }
   .dashboard-side {
     border-right: var(--secondary) solid 1px;
   }
-  display: flex;
   .dashboard-header {
     .header {
       font-weight: bold;
@@ -64,7 +64,6 @@ const searchResult = ref('Ничего не найдено');
       font-size: 14px;
     }
   }
-
   .dashboard-content {
     width: 100%;
     .dashboard-content-empty {
