@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {ref} from 'vue';
+import {documentsStore} from '../stores/documentsStore.ts';
 
 const searchResult = ref('Ничего не найдено');
+const documents = documentsStore();
+console.log(await documents.documents);
 </script>
 
 <template>

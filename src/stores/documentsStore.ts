@@ -8,6 +8,8 @@ export const documentsStore = defineStore('documentsStore', {
 
   },
   getters: {
-
+    async documents() {
+      return (await fetch(import.meta.env.VITE_API_URL + '/user/docs')).json();
+    }
   }
 });
