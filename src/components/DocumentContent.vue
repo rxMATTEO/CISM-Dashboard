@@ -28,9 +28,11 @@ defineProps<DocumentContentProps>();
             Скачать
           </ButtonInput>
         </a>
-        <ButtonInput severity="danger" :disabled="!doc.image">
-          Удалить
-        </ButtonInput>
+        <a>
+          <ButtonInput severity="danger" :disabled="!doc.image">
+            Удалить
+          </ButtonInput>
+        </a>
       </div>
     </div>
     <div class="description">
@@ -86,6 +88,29 @@ defineProps<DocumentContentProps>();
   }
   .header {
     font-weight: bold;
+  }
+}
+
+@media (max-width: 768px) {
+  .content, .options {
+    flex-direction: column;
+    .image {
+      width: 100%;
+    }
+  }
+  .right {
+    width: 100% !important;
+    height: 100%;
+  }
+  .description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: break-spaces;
+  }
+  .text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: break-spaces;
   }
 }
 </style>

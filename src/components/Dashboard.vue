@@ -145,6 +145,7 @@ async function searchDocs(){
     }
   }
   .dashboard-content {
+    min-width: 0;
     width: 80%;
     .dashboard-content-empty {
       display: flex;
@@ -159,7 +160,7 @@ async function searchDocs(){
 
 @media (max-width: 1024px) {
   .dashboard-side {
-    width: 15rem !important;
+    width: 12rem !important;
   }
   .document-name {
     font-size: 12px;
