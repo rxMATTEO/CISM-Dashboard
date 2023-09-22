@@ -3,7 +3,7 @@ import {defineStore} from 'pinia';
 export type Document = {
   id: number,
   name: string,
-  desciption: string,
+  description: string,
   image: string,
 }
 export const documentsStore = defineStore('documentsStore', {
