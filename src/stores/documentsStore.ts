@@ -16,7 +16,9 @@ export const documentsStore = defineStore('documentsStore', {
     };
   },
   actions : {
-
+    async searchById(id: number): Promise<Document[]> {
+      return id ? (await fetch(import.meta.env.VITE_API_URL + '/user/docs?search=' + id)).json(): await this.documents;
+    }
   },
   getters: {
     async documents(): Promise<Document[]> {

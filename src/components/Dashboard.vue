@@ -7,13 +7,13 @@ import DocumentContent from './DocumentContent.vue';
 
 const docsStore = documentsStore();
 const { status } = storeToRefs(docsStore);
-const docs = await docsStore.documents;
+let docs = ref(await docsStore.documents);
 const selectedDocument: Ref<Document | null> = ref(null);
-const isDocumentsEmpty = computed(() => docs.length === 0);
+const isDocumentsEmpty = computed(() => docs.value.length === 0);
 const search = ref('');
 
-function searchDocs(){
-
+async function searchDocs(){
+  docs.value = await docsStore.searchById(+search.value);
 }
 </script>
 
