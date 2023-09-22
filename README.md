@@ -64,3 +64,11 @@ This is dashboard for cism test case
 ## Run preview of build
 
 `npm run preview`
+
+## Docker compose
+
+`docker compose up`
+
+## Docker build
+
+`docker build . -p 3000:3000`
