@@ -10,6 +10,11 @@ const { status } = storeToRefs(docsStore);
 const docs = await docsStore.documents;
 const selectedDocument: Ref<Document | null> = ref(null);
 const isDocumentsEmpty = computed(() => docs.length === 0);
+const search = ref('');
+
+function searchDocs(){
+
+}
 </script>
 
 <template>
@@ -17,7 +22,7 @@ const isDocumentsEmpty = computed(() => docs.length === 0);
   <div class="dashboard-side">
     <div class="dashboard-header">
       <p class="header">Поиск документа</p>
-      <input type="text" class="search" placeholder="Введите ID документа">
+      <input type="number" class="search" placeholder="Введите ID документа" v-model="search" @input="searchDocs">
     </div>
     <div class="dashboard-main">
       <div class="dashboard-header">
