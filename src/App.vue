@@ -12,6 +12,6 @@ import Dashboard from './components/Dashboard.vue';
 
 <style scoped>
 .main {
-  padding: 20px 50px;
+  padding: 1rem 3rem;
 }
 </style>
