@@ -21,4 +21,10 @@ import Dashboard from './components/Dashboard.vue';
 .main {
   padding: 1rem 3rem;
 }
+
+@media (max-width: 768px) {
+  .main {
+    padding: 10px;
+  }
+}
 </style>

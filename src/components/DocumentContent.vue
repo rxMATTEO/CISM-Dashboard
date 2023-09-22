@@ -7,7 +7,7 @@ export type DocumentError = {
 }
 type DocumentContentProps = {
   doc: Document,
-  error: DocumentError
+  error: DocumentError | null
 }
 
 defineProps<DocumentContentProps>();
