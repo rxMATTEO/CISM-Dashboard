@@ -6,11 +6,12 @@ export type Document = {
   description: string,
   image: string,
 }
+
+enum Status {
+  NotFound = 'Ничего не найдено'
+}
 export const documentsStore = defineStore('documentsStore', {
   state: () => {
-    enum Status {
-      NotFound = 'Ничего не найдено'
-    }
     return {
       status: Status
     };
