@@ -37,6 +37,7 @@ module.exports = {
     'linebreak-style': ['error', 'windows'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
-    'no-undef': 0
+    'no-undef': 0,
+    'object-curly-spacing': ['error', 'always'],
   }
 };

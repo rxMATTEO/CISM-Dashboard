@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 export type Document = {
   id: number,
@@ -17,7 +17,7 @@ export const documentsStore = defineStore('documentsStore', {
   },
   actions : {
     async searchById(id: number): Promise<Response | Document[]> {
-      const response: Response  = await fetch(import.meta.env.VITE_API_URL + '/user/docs?search=' + id)
+      const response: Response  = await fetch(`${import.meta.env.VITE_API_URL}/user/docs?search=${id}`)
         .catch( (error) => {
           return error;
         } );
@@ -26,7 +26,7 @@ export const documentsStore = defineStore('documentsStore', {
   },
   getters: {
     async documents(): Promise<Document[]> {
-      return (await fetch(import.meta.env.VITE_API_URL + '/user/docs')).json();
+      return (await fetch(`${import.meta.env.VITE_API_URL}/user/docs`)).json();
     }
   }
 });
