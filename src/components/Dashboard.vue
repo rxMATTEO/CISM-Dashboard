@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onErrorCaptured, Ref, ref } from 'vue';
+import { onErrorCaptured, Ref, ref, shallowRef } from 'vue';
 import type { Document } from '../stores/documentsStore.ts';
 import DocumentContent from './DocumentContent.vue';
 import type { DocumentError } from './DocumentContent.vue';
@@ -9,7 +9,7 @@ import Documents from './Documents.vue';
 const selectedDocument: Ref<Document | null> = ref(null);
 const error: Ref<DocumentError | null> = ref(null);
 
-const errorOrLoad = ref(Error);
+const errorOrLoad = shallowRef(Error);
 onErrorCaptured(() => {
   errorOrLoad.value = Error;
 });
