@@ -14,16 +14,16 @@ const isDocumentsEmpty = computed(() => docs.value.length === 0);
 const search = ref('');
 const error: Ref<DocumentError | null> = ref(null);
 
-function isErrored(result: Response): result is Response {
-  return result.ok === false;
+function isErrored(result: Response | Document[]): result is Response {
+  return 'ok' in result ? !result.ok : false;
 }
 
 async function searchDocs(){
   const result = await docsStore.searchById(+search.value);
-  if(isErrored(result as Response)) {
+  if(isErrored(result)) {
     error.value = { error: (result as Response).statusText };
   } else {
-    docs.value = result as Document[];
+    docs.value = result;
   }
 }
 </script>
