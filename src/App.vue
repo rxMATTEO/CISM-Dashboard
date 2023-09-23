@@ -6,14 +6,7 @@ import Dashboard from './components/Dashboard.vue';
 <template>
   <div class="main">
     <Header />
-    <Suspense>
-      <template #default>
-        <Dashboard />
-      </template>
-      <template #fallback>
-        <div>Загрузка...</div>
-      </template>
-    </Suspense>
+    <Dashboard />
   </div>
 </template>
 

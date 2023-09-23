@@ -27,7 +27,11 @@ export const documentsStore = defineStore('documentsStore', {
   },
   getters: {
     async documents(): Promise<Document[]> {
-      return (await fetch(`${import.meta.env.VITE_API_URL}/user/docs`)).json();
+      const response: Response  = await fetch(`${import.meta.env.VITE_API_URL}/user/docs`)
+        .catch( (error) => {
+          return error;
+        } );
+      return response.ok ? response.json(): response;
     }
   }
 });
