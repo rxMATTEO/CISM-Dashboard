@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { computed, Ref, ref, watchEffect, onErrorCaptured } from 'vue';
+import { computed, Ref, ref, watchEffect } from 'vue';
 import { documentsStore } from '../stores/documentsStore.ts';
 import { storeToRefs } from 'pinia';
 import type { Document } from '../stores/documentsStore.ts';
 import type { DocumentError } from './DocumentContent.vue';
+
+defineProps<{
+  error: DocumentError | null,
+  selectedDocument: Document | null
+}>();
+const emits = defineEmits(['update:error', 'update:selectedDocument']);
 
 const docsStore = documentsStore();
 const { status } = storeToRefs(docsStore);
@@ -15,10 +21,8 @@ watchEffect(() => {
   }
 });
 
-const selectedDocument: Ref<Document | null> = ref(null);
 const isDocumentsEmpty = computed(() => docs.value.length === 0);
 const search = ref('');
-const error: Ref<DocumentError | null> = ref(null);
 
 function isErrored(result: Response | Document[]): result is Response {
   return 'ok' in result ? !result.ok : false;
@@ -27,21 +31,17 @@ function isErrored(result: Response | Document[]): result is Response {
 async function searchDocs(){
   const result = await docsStore.searchById(+search.value);
   if(isErrored(result)) {
-    error.value = { error: (result as Response).statusText };
-    emits('error', error.value);
+    const error = { error: (result as Response).statusText };
+    emits('update:error', error);
   } else {
     docs.value = result;
   }
 }
 
 function changeDocument(doc: Document){
-  selectedDocument.value = doc;
-  error.value = null;
-  emits('documentSelected', selectedDocument.value);
-  emits('error', error.value);
+  emits('update:selectedDocument', doc);
+  emits('update:error', null);
 }
-
-const emits = defineEmits(['documentSelected', 'error']);
 </script>
 
 <template>

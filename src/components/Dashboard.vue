@@ -20,7 +20,7 @@ onErrorCaptured(() => {
   <div class="dashboard-side">
     <Suspense>
       <template #default>
-        <Documents @error="error = $event" @document-selected="selectedDocument = $event" />
+        <Documents v-model:error="error" v-model:selectedDocument="selectedDocument" />
       </template>
       <template #fallback>
         <component :is="errorOrLoad" />
